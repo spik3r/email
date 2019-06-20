@@ -14,8 +14,8 @@ class EmailControllerSpec extends Specification {
     MockMvc mockMvc
 
     EmailService emailService
-    def requestUri = '/'
-    def mailRequestUri = '/mail'
+    def requestUri = '/api/'
+    def mailRequestUri = '/api/mail'
 
 
     void setup() {
