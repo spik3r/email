@@ -5,22 +5,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
+
+
 @Slf4j
 @RestController
 public class EmailController {
 
-    private final Consumer consumer;
+    private final EmailService emailService;
 
     @Autowired
-    public EmailController(Consumer consumer) {
-        this.consumer = consumer;
+    public EmailController(EmailService emailService) {
+        this.emailService = emailService;
     }
 
     @GetMapping("/")
     public String index() {
-
-        log.info("index called");
-
+        log.info("/ called");
         return "Index called";
+    }
+
+    @GetMapping("/explode")
+    public String explode() {
+        log.info("/explode called");
+        throw new RuntimeException("KABOOOOMN");
+    }
+
+    @GetMapping("/mail")
+    public String sendMail() throws MessagingException {
+        log.info("/mail called");
+        emailService.sendEmail();
+        return "Sent";
     }
 }

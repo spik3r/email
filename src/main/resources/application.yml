@@ -16,6 +16,18 @@ spring:
     trusted:
       packages: "*"
 
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+    protocol: smtp
+    tls: false
+    properties.mail.smtp:
+      auth: false
+      starttls.enable: false
+    from: me@localhost.com
+
               #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 #      value-deserializer: org.apache.kafka.common.serialization.JsonDeserializer<User.class>
 

@@ -2,7 +2,6 @@ package com.kaitait.email;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
 
@@ -25,15 +24,19 @@ import java.util.Date;
 @ToString
 public class User {
 
-//    @Id
+    //    @Id
 //    @GeneratedValue(generator = "uuid2")
 //    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private String id;
-//    @CreatedDate
-    private Date getCreateAt = new Date();
-    @NonNull private String firstName;
-    @NonNull private String lastName;
-    @NonNull private String email;
-    @NonNull private String password;
+    //    @CreatedDate
+    private Date createdAt = new Date();
+    @NonNull
+    private String firstName;
+    @NonNull
+    private String lastName;
+    @NonNull
+    private String email;
+    @NonNull
+    private String password;
 }
 
