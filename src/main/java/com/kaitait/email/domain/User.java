@@ -1,4 +1,4 @@
-package com.kaitait.email;
+package com.kaitait.email.domain;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 public class User {
 

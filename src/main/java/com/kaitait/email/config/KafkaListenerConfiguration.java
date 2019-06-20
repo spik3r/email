@@ -1,4 +1,4 @@
-package com.kaitait.email;
+package com.kaitait.email.config;
 
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;

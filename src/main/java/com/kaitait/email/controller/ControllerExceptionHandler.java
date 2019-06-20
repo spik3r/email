@@ -1,4 +1,4 @@
-package com.kaitait.email;
+package com.kaitait.email.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -26,6 +26,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void RuntimeExceptionErrorHandler(final HttpServletRequest req, final RuntimeException e) {
-        log.error("Something blew up: " + req.getRequestURI(), e);
+        log.error("Something unexpected happened: " + req.getRequestURI(), e);
     }
 }

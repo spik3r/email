@@ -1,5 +1,6 @@
-package com.kaitait.email;
+package com.kaitait.email.service;
 
+import com.kaitait.email.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,20 +9,22 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
-import java.util.Date;
 
 @Slf4j
 @Service
 public class EmailService {
 
-    private static final String FROM_EMAIL = "no_reply@xyz-service.com";
-    private static final String ACCOUNT_ACTIVATION_EMAIL = "Thank you for signing up with XYZ-service." +
+    public static final String FROM_EMAIL = "no_reply@xyz-service.com";
+    public static final String ACCOUNT_ACTIVATION_EMAIL = "Thank you for signing up with XYZ-service." +
             " To activate your account, please enter the following %s on the login screen. For security reasons, this link will only be valid for the next 24 hours.";
+
     private JavaMailSender javaMailSender;
+    private FakeUserService fakeUserService;
 
     @Inject
-    public EmailService(final JavaMailSender javaMailSender) {
+    public EmailService(final JavaMailSender javaMailSender, final FakeUserService fakeUserService) {
         this.javaMailSender = javaMailSender;
+        this.fakeUserService = fakeUserService;
     }
 
     public void sendEmail(final User user) throws MailException, MessagingException {
@@ -48,17 +51,12 @@ public class EmailService {
 //        javaMailSender.send(mimeMessage);
     }
 
-    void sendEmail() throws MessagingException {
-        final User user = new User();
-        user.setEmail("dummy@test.com");
-        user.setFirstName("AAA");
-        user.setLastName("BBB");
-        user.setPassword("abc123");
-        user.setId("123");
-        user.setCreatedAt(new Date());
+    public void sendEmail() throws MessagingException {
+        final User user = fakeUserService.getUser();
 
         log.info("sendMail called without user creating dummy", user);
         sendEmail(user);
     }
+
 
 }
