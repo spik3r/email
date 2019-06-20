@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: email-service
+  kafka:
+    consumer:
+      bootstrap-servers: PLAINTEXT://127.0.0.1:9092
+      topic: registration
+      group-id: group-id_1
+      auto-offset-reset: earliest
+      sleep-in-ms: 0
+
+  json:
+    trusted:
+      packages: "*"
+
+              #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.JsonDeserializer<User.class>
+
+#  jpa:
+#    properties:
+#      hibernate:
+#      dialect: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      show-sql: true
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: postgres
+#    password: changeme
