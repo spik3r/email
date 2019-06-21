@@ -3,6 +3,7 @@ package com.kaitait.email.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -19,6 +20,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(regex("/api(/.*|$)"))
-                .build();
+                .build()
+                .useDefaultResponseMessages(false)
+                .apiInfo(new ApiInfo("Email API","An Api which emails newly registered Users","1.0","https://www.kaitait.com","Kai","MIT","https://www.kaitait.com"));
     }
 }

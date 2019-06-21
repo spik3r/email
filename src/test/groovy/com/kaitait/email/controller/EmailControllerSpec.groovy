@@ -1,7 +1,9 @@
 package com.kaitait.email.controller
 
 import com.kaitait.email.service.EmailService
+import org.springframework.http.ResponseEntity
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -32,14 +34,14 @@ class EmailControllerSpec extends Specification {
     def "index method should perform as expected for 'non true' pathVariable #pathVariable"() {
 
         when:
-        String response = controller.index(pathVariable)
+        ResponseEntity response = controller.index(pathVariable)
 
         then:
         noExceptionThrown()
         0 * emailService._
 
         and:
-        response == expectedResult
+        response.getBody() == expectedResult
 
         where:
         pathVariable             | expectedResult
@@ -50,7 +52,7 @@ class EmailControllerSpec extends Specification {
     }
 
     @Unroll
-    void "/ endpoint should perform as expected for 'non true' pathVariable #pathVariable"() {
+    void "/api endpoint should perform as expected for 'non true' pathVariable #pathVariable"() {
 
         when:
         def actions = mockMvc.perform(MockMvcRequestBuilders
@@ -61,8 +63,8 @@ class EmailControllerSpec extends Specification {
         0 * emailService._
 
         and:
-        actions.andExpect(MockMvcResultMatchers.status().isOk())
-        actions.andExpect(MockMvcResultMatchers.content().string(expectedResult))
+        MvcResult result = actions.andExpect(MockMvcResultMatchers.status().isOk()).andReturn()
+        result.getResponse().getContentAsString() == expectedResult
 
         where:
         pathVariable             | expectedResult
@@ -88,7 +90,7 @@ class EmailControllerSpec extends Specification {
         where: pathVariable << ["true"]
     }
 
-    void "/ endpoing should return 404 for 'true' pathVariable #pathVariable"() {
+    void "/api endpoing should return 404 for 'true' pathVariable #pathVariable"() {
 
         when:
         def actions = mockMvc.perform(MockMvcRequestBuilders
@@ -116,18 +118,18 @@ class EmailControllerSpec extends Specification {
         and:
         1 * emailService.sendEmail()
     }
-    void "/mail should perform as expected"() {
+    void "/api/mail should perform as expected"() {
 
         when:
         def actions = mockMvc.perform(MockMvcRequestBuilders
-                .get(mailRequestUri))
+                .post(mailRequestUri))
 
         then:
         noExceptionThrown()
         1 * emailService.sendEmail()
 
         and:
-        actions.andExpect(MockMvcResultMatchers.status().isOk())
-        actions.andExpect(MockMvcResultMatchers.content().string("Email Sent!"))
+        MvcResult result = actions.andExpect(MockMvcResultMatchers.status().isCreated()).andReturn()
+        result.getResponse().getContentAsString() == "Email Sent!"
     }
 }

@@ -1,22 +1,23 @@
 package com.kaitait.email.controller;
 
+import com.kaitait.email.documentation.EmailControllerDocumentation;
 import com.kaitait.email.service.EmailService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+
 
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/api")
 @Api(value = "EmailController")
-public class EmailController {
+public class EmailController implements EmailControllerDocumentation {
 
     private final EmailService emailService;
 
@@ -25,19 +26,19 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @GetMapping({"/{shouldExplode}", "/"})
-    public String index(@PathVariable(required = false) final String shouldExplode) {
+    @Override
+    public ResponseEntity<String> index(@PathVariable(required = false) final String shouldExplode) {
         log.info("/ called with param: {}", shouldExplode);
         if (null !=shouldExplode && shouldExplode.equals("true")) {
             throw new RuntimeException("KABOOOOMN");
         }
-        return "Index called!";
+        return new ResponseEntity<>("Index called!", HttpStatus.OK);
     }
 
-    @GetMapping("/mail")
-    public String sendMail() throws MessagingException {
+    @Override
+    public ResponseEntity<String> sendMail() throws MessagingException {
         log.info("/mail called");
         emailService.sendEmail();
-        return "Email Sent!";
+        return new ResponseEntity<>("Email Sent!", HttpStatus.CREATED);
     }
 }
