@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-
 @Service
 @Slf4j
 public class Consumer {
@@ -18,10 +16,10 @@ public class Consumer {
     }
 
     @KafkaListener(topics = "${spring.kafka.consumer.topic}", groupId = "${spring.kafka.consumer.group-id}", containerFactory = "kafkaListenerContainerFactory")
-    public User consume(final User user) throws MessagingException {
-        log.warn("#### -> Consumed user: -> {}", user.toString());
+    public User consume(final User user) {
+        log.info("#### -> Consumed user: -> {}", user.toString());
 
-        emailService.sendEmail(user);
+        emailService.registerNewUser(user);
         return user;
     }
 

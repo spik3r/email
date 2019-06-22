@@ -11,6 +11,22 @@ spring:
       group-id: group-id_1
       auto-offset-reset: earliest
       sleep-in-ms: 0
+  jpa:
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/email
+    username: postgres
+    password: changeme
+  liquibase:
+    change-log: classpath:/db/changelog-master.xml
+    enabled: true
+    url: jdbc:postgresql://localhost:5433/email
 
   json:
     trusted:
@@ -28,18 +44,23 @@ spring:
       starttls.enable: false
     from: me@localhost.com
 
-              #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.JsonDeserializer<User.class>
-
 #  jpa:
 #    properties:
 #      hibernate:
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
 #      dialect: org.hibernate.dialect.PostgreSQLDialect
 #    hibernate:
 #      show-sql: true
 #    database-platform: org.hibernate.dialect.PostgreSQLDialect
 #
 #  datasource:
-#    url: jdbc:postgresql://localhost:5432/postgres
+#    url: jdbc:postgresql://localhost:5433/email
 #    username: postgres
 #    password: changeme
+#
+#  liquibase:
+#    change-log: classpath:/db/changelog-master.xml
+#    enabled: true
+#    url: jdbc:postgresql://localhost:5433/email

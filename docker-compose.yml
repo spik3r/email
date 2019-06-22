@@ -1,6 +1,19 @@
 version: '3.5'
 
 services:
+  postgres:
+    container_name: email_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: 'email'
+      PGDATA: /data/email_postgres
+    volumes:
+      - email_postgres:/data/postgres
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
   fake-smtp:
     image: munkyboy/fakesmtp
     container_name: fake-smtp
@@ -19,3 +32,6 @@ services:
       - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
     depends_on:
       - fake-smtp
+
+volumes:
+  email_postgres:

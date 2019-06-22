@@ -1,6 +1,8 @@
 package com.kaitait.email.service;
 
+import com.kaitait.email.domain.EmailedUser;
 import com.kaitait.email.domain.User;
+import com.kaitait.email.repository.EmailedUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,17 +22,24 @@ public class EmailService {
 
     private JavaMailSender javaMailSender;
     private FakeUserService fakeUserService;
+    private EmailedUserRepository emailedUserRepository;
+
 
     @Inject
-    public EmailService(final JavaMailSender javaMailSender, final FakeUserService fakeUserService) {
+    public EmailService(final JavaMailSender javaMailSender, final FakeUserService fakeUserService, EmailedUserRepository emailedUserRepository) {
         this.javaMailSender = javaMailSender;
         this.fakeUserService = fakeUserService;
+        this.emailedUserRepository = emailedUserRepository;
     }
 
-    public void sendEmail(final User user) throws MailException, MessagingException {
+    public void registerNewUser(final User user) {
+        log.info("registerNewUser called with User: {}", user);
+        final EmailedUser emailedUser = emailedUserRepository.save(new EmailedUser(user));
+        sendEmail(emailedUser);
+    }
 
+    private void sendEmail(final EmailedUser user) throws MailException {
         log.info("sendMail called with User: {}", user);
-
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(FROM_EMAIL);
         mail.setReplyTo(FROM_EMAIL);
@@ -40,22 +49,13 @@ public class EmailService {
 
         log.info("sending mail with text {}", mail.getText());
         javaMailSender.send(mail);
-
-//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
-//        String htmlMsg = "<h3>Hello World!</h3>";
-//        mimeMessage.setContent(htmlMsg, "text/html");
-//        helper.setTo("someone@abc.com");
-//        helper.setSubject("This is the test message for testing gmail smtp server using spring mail");
-//        helper.setFrom("abc@gmail.com");
-//        javaMailSender.send(mimeMessage);
     }
 
     public void sendEmail() throws MessagingException {
         final User user = fakeUserService.getUser();
-
         log.info("sendMail called without user creating dummy", user);
-        sendEmail(user);
+        registerNewUser(user);
+//        sendEmail(user);
     }
 
 

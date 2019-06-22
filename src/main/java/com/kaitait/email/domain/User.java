@@ -1,36 +1,20 @@
 package com.kaitait.email.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-//import org.hibernate.annotations.GenericGenerator;
-//import org.springframework.data.annotation.CreatedDate;
-//
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-//import java.util.Date;
-//
-//@Entity
-//@Table(name = "users")
 @Slf4j
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-
-    //    @Id
-//    @GeneratedValue(generator = "uuid2")
-//    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private String id;
-    //    @CreatedDate
-    private Date createdAt = new Date();
     @NonNull
     private String firstName;
     @NonNull

@@ -22,6 +22,6 @@ public class SwaggerConfig {
                 .paths(regex("/api(/.*|$)"))
                 .build()
                 .useDefaultResponseMessages(false)
-                .apiInfo(new ApiInfo("Email API","An Api which emails newly registered Users","1.0","https://www.kaitait.com","Kai","MIT","https://www.kaitait.com"));
+                .apiInfo(new ApiInfo("Email API", "An Api which emails newly registered Users", "1.0", "https://www.kaitait.com", "Kai", "MIT", "https://www.kaitait.com"));
     }
 }

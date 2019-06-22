@@ -17,7 +17,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class PojoSpec extends Specification {
-    static List<Class> classesToTest = [User]
+    static List<Class> classesToTest = [User, EmailedUser]
     static Validator validator
 
     def setupSpec() {

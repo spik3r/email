@@ -12,7 +12,7 @@ import javax.mail.MessagingException;
 
 public interface EmailControllerDocumentation {
 
-    @ApiResponses(value= {
+    @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 400, message = "Threw Exception as expected"),
     })
@@ -20,7 +20,7 @@ public interface EmailControllerDocumentation {
     @GetMapping({"/{shouldExplode}", "/"})
     ResponseEntity<String> index(@PathVariable(required = false) final String shouldExplode);
 
-    @ApiResponses(value= {
+    @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 400, message = "Bad Request"),
     })
