@@ -2,7 +2,6 @@ server:
   port: 8081
 
 spring:
-#  profiles: dev
   application:
     name: email-service
   kafka:
@@ -21,10 +20,10 @@ spring:
     hikari:
       maximum-pool-size: 5
       minimum-idle: 1
-      jdbc-url: jdbc:postgresql://localhost:5433/email
+      jdbc-url: jdbc:postgresql://localhost:5434/email
       validation-timeout: 3000
       max-lifetime: 250000
-    url: jdbc:postgresql://localhost:5433/email
+    url: jdbc:postgresql://localhost:5434/email
   jpa:
     generate-ddl: false
     properties:
@@ -33,34 +32,6 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog-master.xml
     enabled: true
-
-#  jpa:
-#    generate-ddl: false
-#    properties:
-#      hibernate.temp.use_jdbc_metadata_defaults: false
-#    open-in-view: false
-##    properties:
-##      hibernate:
-##      dialect: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      show-sql: true
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-#
-#  datasource:
-#    url: jdbc:postgresql://localhost:5433/email
-#    username: postgres
-#    password: changeme
-#    platform: postgres
-#    hikari:
-#      maximum-pool-size: 5
-#      minimum-idle: 1
-#      jdbc-url: jdbc:postgresql://localhost:5433/email
-#      validation-timeout: 3000
-#      max-lifetime: 250000
-#  liquibase:
-##    change-log: classpath:/db/changelog-master.xml
-#    enabled: true
-#    url: jdbc:postgresql://localhost:5433/email
 
   json:
     trusted:
@@ -77,24 +48,3 @@ spring:
       auth: false
       starttls.enable: false
     from: me@localhost.com
-
-#  jpa:
-#    properties:
-#      hibernate:
-#        jdbc:
-#          lob:
-#            non_contextual_creation: true
-#      dialect: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      show-sql: true
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-#
-#  datasource:
-#    url: jdbc:postgresql://localhost:5433/email
-#    username: postgres
-#    password: changeme
-#
-#  liquibase:
-#    change-log: classpath:/db/changelog-master.xml
-#    enabled: true
-#    url: jdbc:postgresql://localhost:5433/email

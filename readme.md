@@ -1,5 +1,12 @@
 ## Email APP
 
+#Info:
+####DB: 
+    user: postgres
+    password: changeme
+    db name: email
+    port: 5434
+    
 #Requirements
 - Java 8
 - Docker
@@ -15,3 +22,6 @@ After running the d emails can be seen at: http://localhost:60500/
 
 #Swagger
 http://localhost:8081/swagger-ui.html#/
+
+#Email inbox
+http://localhost:60500/
