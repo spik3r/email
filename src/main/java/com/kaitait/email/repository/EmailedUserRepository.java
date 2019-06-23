@@ -9,7 +9,4 @@ import java.util.List;
 @Repository
 public interface EmailedUserRepository extends JpaRepository<EmailedUser, String> {
     List<EmailedUser> findAll();
-
-    EmailedUser getById(String id);
-
 }

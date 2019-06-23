@@ -15,8 +15,6 @@ import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 @Configuration
 @EnableKafka
 public class KafkaListenerConfiguration {
-
-
     @Bean
     public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
             ConcurrentKafkaListenerContainerFactoryConfigurer configurer,

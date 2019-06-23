@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.mail.MessagingException;
 
 @Slf4j
 @Service
@@ -51,11 +50,10 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
-    public void sendEmail() throws MessagingException {
+    public void sendEmail() {
         final User user = fakeUserService.getUser();
         log.info("sendMail called without user creating dummy", user);
         registerNewUser(user);
-//        sendEmail(user);
     }
 
 
